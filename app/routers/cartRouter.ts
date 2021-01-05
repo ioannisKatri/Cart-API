@@ -2,7 +2,7 @@ import express, {Request, Response, Router} from "express";
 import path from "path";
 import {ApolloServer} from "apollo-server-express";
 import {typeDefs, resolvers} from "../graphql";
-import {createCart, getCart, updateProducts} from "../controllers/cartController"
+import {createCart, getCart, updateCart} from "../controllers/cartController"
 import {body, validationResult} from 'express-validator';
 import currentUser from "../middlewares/current-user";
 import authMiddleware from "../middlewares/current-user";
@@ -33,7 +33,7 @@ export default function cartRouter(router: Router) {
             // TODO LOGIC for authentication
             return true;
         })
-    ], authMiddleware, validateRequest, updateProducts)
+    ], authMiddleware, validateRequest, updateCart)
 
     return router;
 }

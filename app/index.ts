@@ -1,11 +1,10 @@
-// import {errorHandler} from './middlewares/error-handler';
+import {errorHandler} from './middlewares/error-handler';
 import {NotFoundError} from './configurations/errors/not-found-error';
 import cartRouter from "./routers/cartRouter";
 import 'express-async-errors';
 import mongoDb from "./configurations/databases/mongoDb";
 import express, {Request, Response} from "express";
 import bodyParser from "body-parser";
-import {errorHandler} from "./middlewares/error-handler";
 import path from "path";
 
 const startApp = async () => {
@@ -22,6 +21,7 @@ const startApp = async () => {
     }
 
     app.use(bodyParser.json());
+    
     app.get("/", async (req: Request, res: Response) => {
         res.sendFile(path.join(process.cwd(), "/assets/", "index.html"));
     });

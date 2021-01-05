@@ -25,13 +25,14 @@ const createCart = async (req: Request, res: Response) => {
     }
 }
 
-const updateProducts = async (req: Request, res: Response) => {
+const updateCart = async (req: Request, res: Response) => {
     const cart = await Cart.findOne({userId: req.user.id});
 
     if (!cart) {
         throw new CartDontExist();
     }
-    // TODO validation from the database if the products actually exist, current it should throw an error if it does not
+
+    // TODO create business logic for updating the cart
     try {
         cart.cart = req.body.cart;
         await cart.save();
@@ -45,6 +46,6 @@ const updateProducts = async (req: Request, res: Response) => {
 export {
     getCart,
     createCart,
-    updateProducts,
+    updateCart,
 }
 
