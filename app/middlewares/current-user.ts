@@ -2,6 +2,7 @@ import {NextFunction, Request, Response} from "express";
 import jwt from 'jsonwebtoken';
 
 import NotAuthorizedError from "../configurations/errors/not-authorized-error";
+import {AuthenticationError} from "../configurations/errors/authentication-error";
 
 export default (req: Request, res: Response, next: NextFunction) => {
     let token = req.headers.authorization;
@@ -16,7 +17,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
         req.user = jwt.verify(token, process.env.JWT_KEY!) as UserPayload;
         req.body.userId = req.user.id;
     } catch (e) {
-        throw new Error();
+        throw new AuthenticationError();
     }
     next()
 }
