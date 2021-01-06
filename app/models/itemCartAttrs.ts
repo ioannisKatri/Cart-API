@@ -9,8 +9,8 @@ interface ItemCartAttrs {
 const itemCartSchema = new mongoose.Schema(
     {
         product: {
-            type: Schema.Types.ObjectId,
-            ref: 'Product'
+            type: String,
+            required: true,
         },
         quantity: {
             type: Number,
