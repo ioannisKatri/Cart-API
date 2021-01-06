@@ -4,8 +4,8 @@ import {CartAlreadyExist} from "../configurations/errors/cart-already-exist";
 import {CartDontExist} from "../configurations/errors/cart-dont-exist";
 
 const getCart = async (req: Request, res: Response) => {
-    const user = await Cart.find({userId: req.user.id});
-    return res.status(200).json({currentUser: user || null});
+    const user = await Cart.findOne({userId: req.user.id});
+    return res.status(200).json({response: user || null});
 }
 
 const createCart = async (req: Request, res: Response) => {
@@ -36,10 +36,10 @@ const updateCart = async (req: Request, res: Response) => {
     try {
         cart.cart = req.body.cart;
         await cart.save();
-        return res.status(200).json({cart});
+        return res.status(200).json({response: cart});
     } catch (err) {
         console.log(err.message)
-        return res.status(200).json({message: err.errors});
+        return res.status(400).json({message: err.errors});
     }
 }
 
