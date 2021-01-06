@@ -12,7 +12,7 @@ export default function cartRouter(router: Router) {
     // const server = new ApolloServer({typeDefs, resolvers});
     // server.applyMiddleware({app});
 
-    router.get("/carts/current-user", authMiddleware, getCart);
+    router.get("/carts", authMiddleware, getCart);
 
     router.post("/carts", [
         body('cart').custom( (value) => {
