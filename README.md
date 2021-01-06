@@ -17,7 +17,7 @@ Use .env.example as template to add Database and JWT_key.
 
 ## Launch tests
 
-## `npm run test`
+### `npm run test`
 
 ## CI/CD
 Utilizing azure pipelines
