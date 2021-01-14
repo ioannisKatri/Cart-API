@@ -28,6 +28,16 @@ const cartSchema = new mongoose.Schema({
   },
 });
 
+cartSchema.set('toJSON', {
+  virtuals: true,
+  transform: function(doc, ret) {
+      delete ret._id;
+      delete ret.__v;
+      delete ret.id;
+  }
+});
+
+
 cartSchema.statics.build = (attrs: CartAttrs) => {
   return new Cart(attrs);
 };
