@@ -4,7 +4,9 @@ import path from "path";
 import cartRouter from "./routers/cartRouter";
 import {NotFoundError} from "./configurations/errors/not-found-error";
 import {errorHandler} from "./middlewares/error-handler";
+import swaggerUi from 'swagger-ui-express';
 
+const swaggerDocument1 = require('./swaggerFile/swagger.json');
 const app: Application = express();
 const router = express.Router();
 app.use(bodyParser.json());
@@ -13,9 +15,11 @@ app.get("/", async (req: Request, res: Response) => {
     res.sendFile(path.join(process.cwd(), "/assets/", "index.html"));
 });
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument1));
+
 app.use(cartRouter(router));
 
-app.all('*', async (req, res) => {
+app.all('*', async (req: Request, res: Response) => {
     throw new NotFoundError();
 });
 
