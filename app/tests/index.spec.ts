@@ -41,7 +41,6 @@ describe("Test The Cart Service", () => {
         const result = await request(app)
             .get("/carts")
             .set('Authorization', tokenBearer)
-
         expect(result.status).toEqual(200);
     })
 
@@ -53,8 +52,8 @@ describe("Test The Cart Service", () => {
             .set('Authorization', tokenBearer)
 
         expect(result.status).toBe(200)
-        expect(result.body.response.cart).toEqual(newUserWithItemsInCart.cart)
-        expect(result.body.response.cart.length).toBeGreaterThan(0)
+        expect(result.body.payload.cart).toEqual(newUserWithItemsInCart.cart)
+        expect(result.body.payload.cart.length).toBeGreaterThan(0)
     })
 
 
@@ -111,7 +110,7 @@ describe("Test The Cart Service", () => {
             .put('/carts')
             .set('Authorization', tokenBearer)
             .send({cart: productCart2})
-        expect(result.body.response.cart).toEqual(productCart2)
+        expect(result.body.payload.cart).toEqual(productCart2)
     })
 
 })
