@@ -22,4 +22,7 @@ Use .env.example as template to add Database and JWT_key.
 ## CI/CD
 Utilizing azure pipelines
 
+## API Documentation
+Swagger UI Express
+
 
