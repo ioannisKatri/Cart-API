@@ -1,6 +1,7 @@
 import 'express-async-errors';
 import mongoDb from "./configurations/databases/mongoDb";
 import app from './app';
+require('dotenv').config();
 
 const startApp = async () => {
     if (!process.env.JWT_KEY) {
@@ -16,6 +17,7 @@ const startApp = async () => {
 }
 
 startApp().catch((err) => {
+    console.log(err.message);
     console.log("App failed to start")
 });
 
