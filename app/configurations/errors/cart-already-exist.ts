@@ -9,8 +9,8 @@ export class CartAlreadyExist extends CustomError {
         Object.setPrototypeOf(this, CartAlreadyExist.prototype)
     }
 
-    serializeErrors(): { message: string; field?: string }[] {
-        return [{message: "Cart Already exist"}];
+    serializeErrors(): {success: boolean, message: string; field?: string }[] {
+        return [{success: false, message: "Cart Already exist"}];
     }
 
 }

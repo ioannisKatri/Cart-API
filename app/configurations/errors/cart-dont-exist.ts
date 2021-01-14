@@ -9,8 +9,8 @@ export class CartDontExist extends CustomError {
         Object.setPrototypeOf(this, CartDontExist.prototype)
     }
 
-    serializeErrors(): { message: string; field?: string }[] {
-        return [{message: "Cart Does not Exist"}];
+    serializeErrors(): {success: boolean, message: string; field?: string }[] {
+        return [{success: false, message: "Cart Does not Exist"}];
     }
 
 }

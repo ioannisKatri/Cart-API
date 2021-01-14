@@ -8,7 +8,7 @@ export class AuthenticationError extends CustomError {
         Object.setPrototypeOf(this, AuthenticationError.prototype);
     }
 
-    serializeErrors(): { message: string; field?: string }[] {
-        return [{message: "Unable to Authenticate"}];
+    serializeErrors(): {success: boolean, message: string; field?: string }[] {
+        return [{success: false, message: "Unable to Authenticate"}];
     }
 }
