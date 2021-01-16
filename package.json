@@ -16,7 +16,7 @@
   },
   "scripts": {
     "dev": "nodemon app/index.ts",
-    "test": "jest app/tests --testEnvironment=node",
+    "test": "jest app/tests --testEnvironment=node && export NODE_ENV=test",
     "test1": "nodemon app/tests/bootstraping/db.ts",
     "start": "node build",
     "production": "node build",
