@@ -1,11 +1,9 @@
 import mongoose from "mongoose";
 import {dbCodes, dbErrorCodes} from "../logging-codes/loggingCodes";
-// import { factory } from "../logger/ConfigLog4j";
 import dotEnv from 'dotenv';
 import logger from '../logger'
 
 dotEnv.config()
-// const logger = factory.getLogger("database.mongo");
 
 export default new (class MongoDb {
 

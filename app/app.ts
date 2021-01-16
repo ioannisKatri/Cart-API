@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.get("/", async (req: Request, res: Response) => {
-  res.sendFile(path.join(process.cwd(), "/assets/", "index.html"));
+    res.sendFile(path.join(__dirname, "/assets/", "index.html"));
 });
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument1));
