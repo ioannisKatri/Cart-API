@@ -1,27 +1,37 @@
-import express, {Application, Request, Response} from "express";
+import express, { Application, Request, Response } from "express";
 import bodyParser from "body-parser";
 import path from "path";
-import cartRouter from "./routers/cartRouter";
-import {NotFoundError} from "./configurations/errors/not-found-error";
-import {errorHandler} from "./middlewares/error-handler";
-import swaggerUi from 'swagger-ui-express';
-import apolloServer from "./configurations/graphql";
+import swaggerUi from "swagger-ui-express";
+import expressWinston from "express-winston";
 
-const swaggerDocument1 = require('./swaggerFile/swagger.json');
+import cartRouter from "./routers/cartRouter";
+import { NotFoundError } from "./configurations/errors/not-found-error";
+import { errorHandler } from "./middlewares/error-handler";
+import apolloServer from "./configurations/graphql";
+import swaggerDocument1 from "./swaggerFile/swagger.json";
+import { logConfigDev, logConfigProduction } from "./configurations/logger";
+
 const app: Application = express();
 const router = express.Router();
+
 app.use(bodyParser.json());
 
+if (process.env.NODE_ENV === "production") {
+  app.use(expressWinston.logger(logConfigProduction));
+} else {
+  app.use(expressWinston.logger(logConfigDev));
+}
+
 app.get("/", async (req: Request, res: Response) => {
-    res.sendFile(path.join(process.cwd(), "/assets/", "index.html"));
+  res.sendFile(path.join(process.cwd(), "/assets/", "index.html"));
 });
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument1));
 
-apolloServer.applyMiddleware({app});
+apolloServer.applyMiddleware({ app });
 app.use(cartRouter(router));
-app.all('*', async (req: Request, res: Response) => {
-    throw new NotFoundError();
+app.all("*", async (req: Request, res: Response) => {
+  throw new NotFoundError();
 });
 
 app.use(errorHandler);

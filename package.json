@@ -34,11 +34,13 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-validator": "^6.4.0",
+    "express-winston": "^4.0.5",
     "graphql": "^15.4.0",
     "mongoose": "^5.10.11",
     "node-fetch": "^2.6.1",
     "swagger-ui-express": "^4.1.6",
-    "typescript-logging": "^1.0.0"
+    "typescript-logging": "^1.0.0",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@types/swagger-ui-express": "^4.1.2",
