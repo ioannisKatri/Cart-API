@@ -1,16 +1,15 @@
 import express, {Request, Response, Router} from "express";
 import path from "path";
 import {ApolloServer} from "apollo-server-express";
-import {typeDefs, resolvers} from "../graphql";
+import {typeDefs, resolvers} from "../configurations/graphql/schema";
 import {createCart, getCart, updateCart} from "../controllers/cartController"
 import {body, validationResult} from 'express-validator';
-import currentUser from "../middlewares/current-user";
-import authMiddleware from "../middlewares/current-user";
+import currentUser from "../middlewares/authentication";
+import authMiddleware from "../middlewares/authentication";
 import {validateRequest} from "../middlewares/validate-request";
 
 export default function cartRouter(router: Router) {
-    // const server = new ApolloServer({typeDefs, resolvers});
-    // server.applyMiddleware({app});
+
 
     router.get("/carts", authMiddleware, getCart);
 
