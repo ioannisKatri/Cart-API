@@ -8,10 +8,10 @@ const startApp = async () => {
         throw new Error('JWT_KEY must be defined');
     }
 
-    const result = await mongoDb.connect();
-    if (result === null) {
-        throw new Error("Failed to connect to DB")
-    }
+    // const result = await mongoDb.connect();
+    // if (result === null) {
+    //     throw new Error("Failed to connect to DB")
+    // }
     app.listen(8000, () => console.log("App listening on 8000 port"));
 
 }

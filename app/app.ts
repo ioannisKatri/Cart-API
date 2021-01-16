@@ -5,6 +5,7 @@ import cartRouter from "./routers/cartRouter";
 import {NotFoundError} from "./configurations/errors/not-found-error";
 import {errorHandler} from "./middlewares/error-handler";
 import swaggerUi from 'swagger-ui-express';
+import apolloServer from "./configurations/graphql";
 
 const swaggerDocument1 = require('./swaggerFile/swagger.json');
 const app: Application = express();
@@ -17,8 +18,8 @@ app.get("/", async (req: Request, res: Response) => {
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument1));
 
+apolloServer.applyMiddleware({app});
 app.use(cartRouter(router));
-
 app.all('*', async (req: Request, res: Response) => {
     throw new NotFoundError();
 });
