@@ -1,9 +1,16 @@
-const { createLogger, format, transports } = require("winston");
+import { createLogger, format, transports, Logger } from "winston";
+import DatadogWinston from 'datadog-winston';
 
+require("dotenv").config();
 const httpTransportOptions = {
-  host: "http-intake.logs.datadoghq.com",
-  path: `/v1/input/${process.env.DD_API_KEY}?ddsource=nodejs&service=cartApi`,
+  host: `http-intake.logs.${process.env.DD_SITE}`,
+  path: `/v1/input`,
   ssl: true,
+  ddsource: "node",
+  service: "cartApi",
+  headers: {
+    "DD-API-KEY": process.env.DD_API_KEY,
+  },
 };
 
 export const logConfigDev = {
@@ -20,20 +27,28 @@ export const logConfigDev = {
 export const logConfigProduction = {
   level: "info",
   exitOnError: false,
-  format: format.combine(
-    format.timestamp(),
-    format.json()
-  ),
-  transports: [new transports.Http(httpTransportOptions)],
+  format: format.combine(format.timestamp(), format.json()),
+  transports: [
+    new transports.Http(httpTransportOptions),
+    new transports.Console(),
+  ],
 };
 
-
-
-let logger;
+let logger: Logger;
 if (process.env.NODE_ENV === "production") {
   logger = createLogger(logConfigProduction);
 } else {
   logger = createLogger(logConfigDev);
 }
+
+logger.add(
+  new DatadogWinston({
+    apiKey: process.env.DD_API_KEY || '',
+    hostname: "my_machine",
+    service: "super_service",
+    ddsource: "nodejs",
+    ddtags: "foo:bar,boo:baz",
+  })
+);
 
 export default logger;

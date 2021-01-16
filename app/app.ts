@@ -13,13 +13,12 @@ import { logConfigDev, logConfigProduction } from "./configurations/logger";
 
 const app: Application = express();
 const router = express.Router();
-
 app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === "production") {
-  app.use(expressWinston.logger(logConfigProduction));
+    app.use(expressWinston.logger(logConfigProduction));
 } else {
-  app.use(expressWinston.logger(logConfigDev));
+    app.use(expressWinston.logger(logConfigDev));
 }
 
 app.get("/", async (req: Request, res: Response) => {

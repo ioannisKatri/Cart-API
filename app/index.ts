@@ -1,6 +1,7 @@
 import 'express-async-errors';
 import mongoDb from "./configurations/databases/mongoDb";
 import app from './app';
+
 require('dotenv').config();
 
 const startApp = async () => {
