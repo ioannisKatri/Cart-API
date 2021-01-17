@@ -15,6 +15,7 @@ const app: Application = express();
 const router = express.Router();
 app.use(bodyParser.json());
 
+
 if (process.env.NODE_ENV === "production") {
     app.use(expressWinston.logger(logConfigProduction));
 } else if (process.env.NODE_ENV !== "test"){

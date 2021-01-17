@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- staging
+- main
 
 variables:
   # Agent VM image name
@@ -18,14 +18,7 @@ stages:
     displayName: "Setting up the environment"
     pool:
       vmImage: $(vmImageName)
-      
     steps:
-    - task: CmdLine@2
-      inputs:
-        script: 'rm -r node_modules'
-      displayName: 'Exporting environment variables'
-
-
     - task: NodeTool@0
       inputs:
         versionSpec: '14.x'
@@ -42,23 +35,27 @@ stages:
   jobs:
   - job: Build
     displayName: "Buildign the Αpplication"
-  pool:
-    vmImage: $(vmImageName)
-
-  steps:
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '14.x'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '14.x'
       continueOnError: false
     - script: |
-      npm install
-      npm run build
-    displayName: 'Installing and building the application'
+        npm install
+        npm run build
+      displayName: 'Installing and building the application'
 
     - task: CmdLine@2
-      inputs:
-        script: 'rm -r node_modules'
+    - script: |
+        rm -r node_modules
       displayName: 'remove node_modules'
+
+    - task: CmdLine@2
+    - script: |
+        npm install --only=prod
+      displayName: 'Instal only essential modules that required on prod'
 
     - task: ArchiveFiles@2
       displayName: 'Archive $(Build.SourcesDirectory)'
