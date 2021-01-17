@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import bodyParser from "body-parser";
-import path from "path";
 import swaggerUi from "swagger-ui-express";
+import path from "path";
 import expressWinston from "express-winston";
 
 import cartRouter from "./routers/cartRouter";
