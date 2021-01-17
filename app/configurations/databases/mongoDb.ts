@@ -8,7 +8,7 @@ dotEnv.config()
 export default new (class MongoDb {
 
   // TODO throw error if it is missing
-  private readonly connectionUrl: string = process.env.CUSTOMCONNSTR_MONGODB_URL ? process.env.CUSTOMCONNSTR_MONGODB_URL :  "";
+  private readonly connectionUrl: string = process.env.MONGODB_URL ? process.env.MONGODB_URL :  "";
 
   async connect() {
     logger.info(dbCodes.INITIALIZING_DB);
