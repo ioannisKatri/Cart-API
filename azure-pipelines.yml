@@ -56,9 +56,14 @@ stages:
     displayName: 'Installing and building the application'
 
     - task: CmdLine@2
-      inputs:
+    - script: |
         script: 'rm -r node_modules'
       displayName: 'remove node_modules'
+
+    - task: CmdLine@2     
+    - script: |
+        script: 'npm install --only=prod'
+      displayName: 'Instal only prod packages for npm'
 
     - task: ArchiveFiles@2
       displayName: 'Archive $(Build.SourcesDirectory)'
