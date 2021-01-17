@@ -18,7 +18,7 @@ stages:
     displayName: "Setting up the environment"
     pool:
       vmImage: $(vmImageName)
-      
+    steps:
     - task: NodeTool@0
       inputs:
         versionSpec: '14.x'
