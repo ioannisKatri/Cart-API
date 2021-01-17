@@ -42,35 +42,34 @@ stages:
   jobs:
   - job: Build
     displayName: "Buildign the Αpplication"
-  pool:
-    vmImage: $(vmImageName)
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '14.x'
+      continueOnError: false
+    - script: |
+        npm install
+        npm run build
+      displayName: 'Installing and building the application'
 
-  steps:
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '14.x'
-    continueOnError: false
-  - script: |
-      npm install
-      npm run build
-    displayName: 'Installing and building the application'
+    - task: CmdLine@2
+    - script: |
+        script: 'rm -r node_modules'
+      displayName: 'remove node_modules'
 
-  - task: CmdLine@2
-  - script: |
-      script: 'rm -r node_modules'
-    displayName: 'remove node_modules'
+    - task: CmdLine@2
+    - script: |
+        script: 'npm install --only=prod'
+      displayName: 'Instal only prod packages for npm'
 
-  - task: CmdLine@2
-  - script: |
-      script: 'npm install --only=prod'
-    displayName: 'Instal only prod packages for npm'
-
-  - task: ArchiveFiles@2
-    displayName: 'Archive $(Build.SourcesDirectory)'
-    inputs:
-      rootFolderOrFile: '$(Build.SourcesDirectory)'
-      includeRootFolder: false
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: drop'
+    - task: ArchiveFiles@2
+      displayName: 'Archive $(Build.SourcesDirectory)'
+      inputs:
+        rootFolderOrFile: '$(Build.SourcesDirectory)'
+        includeRootFolder: false
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: drop'
 
   
