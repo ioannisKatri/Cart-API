@@ -28,7 +28,7 @@ stages:
     - script: |
         npm install
         npm run test
-      displayName: 'npm install anad test'
+      displayName: 'npm install and test'
       
 - stage: Build
   displayName: "Building the Application"
