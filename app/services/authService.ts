@@ -2,6 +2,9 @@ import {NextFunction, Request, Response} from "express";
 import NotAuthorizedError from "../configurations/errors/not-authorized-error";
 import jwt from "jsonwebtoken";
 import {AuthenticationError} from "../configurations/errors/authentication-error";
+import dotEnv from "dotenv";
+
+dotEnv.config({ path: process.env.NODE_ENV !== "test" ? '.env': '.env.test' })
 
 export default new (class AuthenticationService {
 
