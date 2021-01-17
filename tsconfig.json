@@ -17,11 +17,12 @@
       "node_modules/@types/"
     ]
   },
-  "include": [
-    "app/**/*"
-  ],
   "exclude": [
     "node_modules",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "app/tests/"
+  ],
+  "include": [
+    "app/**/*"
   ]
 }
