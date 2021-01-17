@@ -19,13 +19,6 @@ stages:
     pool:
       vmImage: $(vmImageName)
       
-    steps:
-    - task: CmdLine@2
-      inputs:
-        script: 'rm -r node_modules'
-      displayName: 'Exporting environment variables'
-
-
     - task: NodeTool@0
       inputs:
         versionSpec: '14.x'
