@@ -35,18 +35,17 @@ stages:
   jobs:
   - job: Build
     displayName: "Buildign the Αpplication"
-  pool:
-    vmImage: $(vmImageName)
-
-  steps:
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '14.x'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '14.x'
       continueOnError: false
     - script: |
-      npm install
-      npm run build
-    displayName: 'Installing and building the application'
+        npm install
+        npm run build
+      displayName: 'Installing and building the application'
 
     - task: CmdLine@2
     - script: |
