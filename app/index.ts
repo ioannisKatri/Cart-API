@@ -13,7 +13,7 @@ const startApp = async () => {
     if (result === null) {
         throw new Error("Failed to connect to DB")
     }
-    app.listen(8000, () => console.log("App listening on 8000 port"));
+    app.listen(3000, () => console.log("App listening on 3000 port"));
 
 }
 
