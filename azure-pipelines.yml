@@ -4,40 +4,68 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
+- staging
 
 variables:
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
 stages:
-- stage: Build
-  displayName: Build stage
+- stage: Test
+  displayName: "Running Tests to verify that everything works as expected"
   jobs:  
-  - job: Build
-    displayName: Build
+  - job: Test
+    displayName: "Setting up the environment"
     pool:
       vmImage: $(vmImageName)
       
     steps:
+    - task: CmdLine@2
+      inputs:
+        script: 'rm -r node_modules'
+      displayName: 'Exporting environment variables'
+
+
     - task: NodeTool@0
       inputs:
-        versionSpec: '10.x'
+        versionSpec: '14.x'
       displayName: 'Install Node.js'
+      continueOnError: false
 
     - script: |
         npm install
-        npm run build --if-present
-        npm run test --if-present
-      displayName: 'npm install, build and test'
+        npm run test
+      displayName: 'npm install anad test'
       
+- stage: Build
+  displayName: "Building the Application"
+  jobs:
+  - job: Build
+    displayName: "Buildign the Αpplication"
+  pool:
+    vmImage: $(vmImageName)
+
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '14.x'
+      continueOnError: false
+    - script: |
+      npm install
+      npm run build
+    displayName: 'Installing and building the application'
+
+    - task: CmdLine@2
+      inputs:
+        script: 'rm -r node_modules'
+      displayName: 'remove node_modules'
+
     - task: ArchiveFiles@2
-      displayName: 'Archive files $(Build.SourcesDirectory)'
+      displayName: 'Archive $(Build.SourcesDirectory)'
       inputs:
         rootFolderOrFile: '$(Build.SourcesDirectory)'
         includeRootFolder: false
-        archiveType: zip
-        replaceExistingArchive: true
-
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: drop'
+
+  
