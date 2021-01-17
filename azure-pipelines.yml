@@ -50,22 +50,22 @@ stages:
     inputs:
       versionSpec: '14.x'
       continueOnError: false
-    - script: |
-      npm install
-      npm run build
-    displayName: 'Installing and building the application'
+  - script: |
+    npm install
+    npm run build
+  displayName: 'Installing and building the application'
 
-    - task: CmdLine@2
-      inputs:
-        script: 'rm -r node_modules'
-      displayName: 'remove node_modules'
+  - task: CmdLine@2
+    inputs:
+      script: 'rm -r node_modules'
+    displayName: 'remove node_modules'
 
-    - task: ArchiveFiles@2
-      displayName: 'Archive $(Build.SourcesDirectory)'
-      inputs:
-        rootFolderOrFile: '$(Build.SourcesDirectory)'
-        includeRootFolder: false
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: drop'
+  - task: ArchiveFiles@2
+    displayName: 'Archive $(Build.SourcesDirectory)'
+    inputs:
+      rootFolderOrFile: '$(Build.SourcesDirectory)'
+      includeRootFolder: false
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
 
   
