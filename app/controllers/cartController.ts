@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Cart from "../models/cart";
-import { CartAlreadyExist } from "../configurations/errors/cart-already-exist";
-import { CartDontExist } from "../configurations/errors/cart-dont-exist";
+import { CartAlreadyExist } from "../config/errors/cart-already-exist";
+import { CartDontExist } from "../config/errors/cart-dont-exist";
 
 const getCart = async (req: Request, res: Response) => {
   const user = await Cart.findOne({ userId: req.user.id });

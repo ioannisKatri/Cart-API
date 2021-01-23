@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {dbCodes, dbErrorCodes} from "../logging-codes/loggingCodes";
+import {dbCodes, dbErrorCodes} from "../logger/loggingCodes";
 import dotEnv from 'dotenv';
 import logger from '../logger'
 

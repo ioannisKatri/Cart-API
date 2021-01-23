@@ -1,6 +1,6 @@
 import Item from "../item";
-import {apiErrCodes} from "../../../configurations/logging-codes/loggingCodes";
-import {isNotPositiveNumberOrBellowZero} from "../../../configurations/utilities/utilities";
+import {apiErrCodes} from "../../../config/logger/loggingCodes";
+import {isNotPositiveNumberOrBellowZero} from "../../../config/utilities/utilities";
 
 
 // tslint:disable-next-line:new-parens

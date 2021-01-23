@@ -5,11 +5,11 @@ import swaggerUi from "swagger-ui-express";
 import expressWinston from "express-winston";
 
 import cartRouter from "./routers/cartRouter";
-import { NotFoundError } from "./configurations/errors/not-found-error";
+import { NotFoundError } from "./config/errors/not-found-error";
 import { errorHandler } from "./middlewares/error-handler";
-import apolloServer from "./configurations/graphql";
-import swaggerDocument1 from "./swaggerFile/swagger.json";
-import { logConfigDev, logConfigProduction } from "./configurations/logger";
+import apolloServer from "./config/graphql";
+import swaggerDocument from "./swagger.json";
+import { logConfigDev, logConfigProduction } from "./config/logger";
 
 const app: Application = express();
 const router = express.Router();
@@ -22,12 +22,8 @@ if (process.env.NODE_ENV === "production") {
     app.use(expressWinston.logger(logConfigDev));
 }
 
-app.get("/", async (req: Request, res: Response) => {
-    console.log(__dirname);
-    res.sendFile(path.join(process.cwd(), "/assets/", "index.html"));
-});
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument1));
+app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 apolloServer.applyMiddleware({ app });
 app.use(cartRouter(router));

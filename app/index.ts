@@ -1,5 +1,5 @@
 import 'express-async-errors';
-import mongoDb from "./configurations/databases/mongoDb";
+import mongoDb from "./config/databases/mongoDb";
 import app from './app';
 
 require('dotenv').config();

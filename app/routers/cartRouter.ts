@@ -1,7 +1,7 @@
 import express, {Request, Response, Router} from "express";
 import path from "path";
 import {ApolloServer} from "apollo-server-express";
-import {typeDefs, resolvers} from "../configurations/graphql/schema";
+import {typeDefs, resolvers} from "../config/graphql/schema";
 import {createCart, getCart, updateCart} from "../controllers/cartController"
 import {body, validationResult} from 'express-validator';
 import currentUser from "../middlewares/authentication";

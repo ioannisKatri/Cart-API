@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from "express";
-import RequestValidationError from "../configurations/errors/request-validation-error";
+import RequestValidationError from "../config/errors/request-validation-error";
 import {validationResult} from "express-validator";
 
 
